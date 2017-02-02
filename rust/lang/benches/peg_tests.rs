@@ -124,7 +124,7 @@ mod combine_benches {
             optional(token(b'-')),
             token(b'0').map(|_| &b"0"[..]).or(take_while1(is_digit)),
             optional((token(b'.'), take_while1(is_digit))),
-            optional((token(b'e').or(token(b'E')), optional(token(b'-').or(token(b'+'))), take_while1(is_digit))),
+            optional((token(b'e').or(token(b'E')), token(b'-').map(Some).or(token(b'+').map(Some).or(value(None))), take_while1(is_digit))),
         ).map(|_| ()).parse_stream(s)
     }
 
